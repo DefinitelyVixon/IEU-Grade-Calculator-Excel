@@ -24,7 +24,7 @@ Once you are ready, you will see this code segment in the script.
 You can change the contents of the course_names list on line 69 to be whatever course you are taking.
 You can also optionally change the output path of the Excel file on line 72, but it's not really necessary.
 
-After the execution is done, your grades.xlsx will look like something this.
+After the execution is done, your grades.xlsx will look something like this.
 
 ![sample usage](usage.png)
 
