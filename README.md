@@ -21,8 +21,8 @@ Once you are ready, you will see this code segment in the script.
 96     ct = CourseTable(course_names)
 97     ct.to_excel('grades.xlsx')
 ```
-You can change the contents of the course_names list on line 69 to be whatever course you are taking.
-You can also optionally change the output path of the Excel file on line 72, but it's not really necessary.
+You can change the contents of the course_names list on line 94 to be whatever course you are taking.
+You can also optionally change the output path of the Excel file on line 97, but it's not really necessary.
 
 After the execution is done, your grades.xlsx will look something like this.
 
