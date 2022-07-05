@@ -82,47 +82,10 @@ class CourseTable:
         for row_i in range(len(df_out.index)):
             grade_val = df_out.iloc[row_i, 3]
             if grade_val == 'Grade':
-                # row = f'A{row_i}:D{row_i}'
-                # worksheet.write(row, bold)
                 worksheet.set_row(row_i, None, bold)
             if grade_val is None:
                 worksheet.write(row_i, 3, None, unlocked)
 
-        excel_writer.save()
-
-    def to_xlsxwriter(self, filename):
-
-        workbook = xlsxwriter.Workbook(filename)
-        worksheet = workbook.add_worksheet('Courses')
-
-        locked = workbook.add_format({'locked': True})
-        unlocked = workbook.add_format({'locked': False})
-
-        excel_writer = pd.ExcelWriter(filename, engine='xlsxwriter')
-
-        df_out = pd.DataFrame(columns=['metric', 'number', 'weight'])
-
-        for course in self.courses:
-            df_out = pd.concat([df_out, pd.DataFrame([[course.code, 'Number', 'Weight', 'Grade']],
-                                                     columns=['metric', 'number', 'weight', 'grade'])],
-                               ignore_index=True)
-            df_out = pd.concat([df_out, course.evaluations],
-                               ignore_index=True)
-
-            # noinspection PyTypeChecker
-            last_index = df_out.last_valid_index() + 1
-            metric_num = len(course.evaluations.index) - 1
-            formula = f'=SUMPRODUCT(C{last_index - metric_num}:C{last_index},D{last_index - metric_num}:D{last_index})'
-            df_out = pd.concat([df_out, pd.DataFrame([[None, None, None, formula]],
-                                                     columns=['metric', 'number', 'weight', 'grade'])],
-                               ignore_index=True)
-        df_out.to_excel(excel_writer, sheet_name='Courses', header=False, index=False)
-
-        for col_i in range(len(df_out.columns) - 1):  # loop through all columns
-            series = df_out.iloc[:, col_i]
-            max_len = max((series.astype(str).map(len).max(),
-                           len(str(series.name)))) + 1
-            excel_writer.sheets['Courses'].set_column(col_i, col_i, max_len)  # set column width
         excel_writer.save()
 
 
